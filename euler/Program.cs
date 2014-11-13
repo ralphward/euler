@@ -14,26 +14,28 @@ namespace euler
         private static void init()
         {
             maxFactor = new List<decimal> { };
-            primes2_10k = new List<decimal>{
-                2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069, 2081, 2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137, 2141, 2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237, 2239, 2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297, 2309, 2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377, 2381, 2383, 2389, 2393, 2399, 2411, 2417, 2423, 2437, 2441, 2447, 2459, 2467, 2473, 2477, 2503, 2521, 2531, 2539, 2543, 2549, 2551, 2557, 2579, 2591, 2593, 2609, 2617, 2621, 2633, 2647, 2657, 2659, 2663, 2671, 2677, 2683, 2687, 2689, 2693, 2699, 2707, 2711, 2713, 2719, 2729, 2731, 2741, 2749, 2753, 2767, 2777, 2789, 2791, 2797, 2801, 2803, 2819, 2833, 2837, 2843, 2851, 2857, 2861, 2879, 2887, 2897, 2903, 2909, 2917, 2927, 2939, 2953, 2957, 2963, 2969, 2971, 2999,
-                4001, 4003, 4007, 4013, 4019, 4021, 4027, 4049, 4051, 4057, 4073, 4079, 4091, 4093, 4099, 4111, 4127, 4129, 4133, 4139, 4153, 4157, 4159, 4177, 4201, 4211, 4217, 4219, 4229, 4231, 4241, 4243, 4253, 4259, 4261, 4271, 4273, 4283, 4289, 4297, 
-                4327, 4337, 4339, 4349, 4357, 4363, 4373, 4391, 4397, 4409, 4421, 4423, 4441, 4447, 4451, 4457, 4463, 4481, 4483, 4493, 4507, 4513, 4517, 4519, 4523, 4547, 4549, 4561, 4567, 4583, 4591, 4597, 4603, 4621, 4637, 4639, 4643, 4649, 4651, 4657, 
-                4663, 4673, 4679, 4691, 4703, 4721, 4723, 4729, 4733, 4751, 4759, 4783, 4787, 4789, 4793, 4799, 4801, 4813, 4817, 4831, 4861, 4871, 4877, 4889, 4903, 4909, 4919, 4931, 4933, 4937, 4943, 4951, 4957, 4967, 4969, 4973, 4987, 4993, 4999, 5003, 
-                5009, 5011, 5021, 5023, 5039, 5051, 5059, 5077, 5081, 5087, 5099, 5101, 5107, 5113, 5119, 5147, 5153, 5167, 5171, 5179, 5189, 5197, 5209, 5227, 5231, 5233, 5237, 5261, 5273, 5279, 5281, 5297, 5303, 5309, 5323, 5333, 5347, 5351, 5381, 5387, 
-                5393, 5399, 5407, 5413, 5417, 5419, 5431, 5437, 5441, 5443, 5449, 5471, 5477, 5479, 5483, 5501, 5503, 5507, 5519, 5521, 5527, 5531, 5557, 5563, 5569, 5573, 5581, 5591, 5623, 5639, 5641, 5647, 5651, 5653, 5657, 5659, 5669, 5683, 5689, 5693, 
-                5701, 5711, 5717, 5737, 5741, 5743, 5749, 5779, 5783, 5791, 5801, 5807, 5813, 5821, 5827, 5839, 5843, 5849, 5851, 5857, 5861, 5867, 5869, 5879, 5881, 5897, 5903, 5923, 5927, 5939, 5953, 5981, 5987, 6007, 6011, 6029, 6037, 6043, 6047, 6053, 
-                6067, 6073, 6079, 6089, 6091, 6101, 6113, 6121, 6131, 6133, 6143, 6151, 6163, 6173, 6197, 6199, 6203, 6211, 6217, 6221, 6229, 6247, 6257, 6263, 6269, 6271, 6277, 6287, 6299, 6301, 6311, 6317, 6323, 6329, 6337, 6343, 6353, 6359, 6361, 6367, 
-                6373, 6379, 6389, 6397, 6421, 6427, 6449, 6451, 6469, 6473, 6481, 6491, 6521, 6529, 6547, 6551, 6553, 6563, 6569, 6571, 6577, 6581, 6599, 6607, 6619, 6637, 6653, 6659, 6661, 6673, 6679, 6689, 6691, 6701, 6703, 6709, 6719, 6733, 6737, 6761, 
-                6763, 6779, 6781, 6791, 6793, 6803, 6823, 6827, 6829, 6833, 6841, 6857, 6863, 6869, 6871, 6883, 6899, 6907, 6911, 6917, 6947, 6949, 6959, 6961, 6967, 6971, 6977, 6983, 6991, 6997, 7001, 7013, 7019, 7027, 7039, 7043, 7057, 7069, 7079, 7103, 
-                7109, 7121, 7127, 7129, 7151, 7159, 7177, 7187, 7193, 7207, 7211, 7213, 7219, 7229, 7237, 7243, 7247, 7253, 7283, 7297, 7307, 7309, 7321, 7331, 7333, 7349, 7351, 7369, 7393, 7411, 7417, 7433, 7451, 7457, 7459, 7477, 7481, 7487, 7489, 7499, 
-                7507, 7517, 7523, 7529, 7537, 7541, 7547, 7549, 7559, 7561, 7573, 7577, 7583, 7589, 7591, 7603, 7607, 7621, 7639, 7643, 7649, 7669, 7673, 7681, 7687, 7691, 7699, 7703, 7717, 7723, 7727, 7741, 7753, 7757, 7759, 7789, 7793, 7817, 7823, 7829, 
-                7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919, 7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017, 8039, 8053, 8059, 8069, 8081, 8087, 8089, 8093, 8101, 8111, 8117, 8123, 8147, 8161, 8167, 8171, 8179, 8191, 8209, 8219, 
-                8221, 8231, 8233, 8237, 8243, 8263, 8269, 8273, 8287, 8291, 8293, 8297, 8311, 8317, 8329, 8353, 8363, 8369, 8377, 8387, 8389, 8419, 8423, 8429, 8431, 8443, 8447, 8461, 8467, 8501, 8513, 8521, 8527, 8537, 8539, 8543, 8563, 8573, 8581, 8597, 
-                8599, 8609, 8623, 8627, 8629, 8641, 8647, 8663, 8669, 8677, 8681, 8689, 8693, 8699, 8707, 8713, 8719, 8731, 8737, 8741, 8747, 8753, 8761, 8779, 8783, 8803, 8807, 8819, 8821, 8831, 8837, 8839, 8849, 8861, 8863, 8867, 8887, 8893, 8923, 8929, 
-                8933, 8941, 8951, 8963, 8969, 8971, 8999, 9001, 9007, 9011, 9013, 9029, 9041, 9043, 9049, 9059, 9067, 9091, 9103, 9109, 9127, 9133, 9137, 9151, 9157, 9161, 9173, 9181, 9187, 9199, 9203, 9209, 9221, 9227, 9239, 9241, 9257, 9277, 9281, 9283, 
-                9293, 9311, 9319, 9323, 9337, 9341, 9343, 9349, 9371, 9377, 9391, 9397, 9403, 9413, 9419, 9421, 9431, 9433, 9437, 9439, 9461, 9463, 9467, 9473, 9479, 9491, 9497, 9511, 9521, 9533, 9539, 9547, 9551, 9587, 9601, 9613, 9619, 9623, 9629, 9631, 
-                9643, 9649, 9661, 9677, 9679, 9689, 9697, 9719, 9721, 9733, 9739, 9743, 9749, 9767, 9769, 9781, 9787, 9791, 9803, 9811, 9817, 9829, 9833, 9839, 9851, 9857, 9859, 9871, 9883, 9887, 9901, 9907, 9923, 9929, 9931, 9941, 9949, 9967, 9973
-            };
+            primes2_10k = new List<decimal>{ 2, 3 };
+
+            decimal candidate = primes2_10k.Max() + 2;
+            bool gotOne;
+
+            while (primes2_10k.Count < 10000)
+            {
+                gotOne = true;
+                for (int i = 0; primes2_10k[i] < (decimal)Math.Sqrt((double)candidate); i++)
+                {
+                    if (candidate % primes2_10k[i] == 0)
+                    {
+                        gotOne = false;
+                        break;
+                    }
+                }
+                if (gotOne)
+                    primes2_10k.Add(candidate);
+
+                candidate += 2;
+            }
+
         }
 
         public static void Main(string[] args)
@@ -41,17 +43,156 @@ namespace euler
 
             init();
 
+            /*
             //Q1 Sum of all numbers under 1000 that are divisible by 3 and 5
-            //Debug.WriteLine(q1() + "");
+            Debug.WriteLine(q1() + "");
 
             //Q2 Sum of all fibonacci numbers < 4,000,000 that are even numbers
-            //Debug.WriteLine(q2() + "");
+            Debug.WriteLine(q2() + "");
 
             //Q3 Largest prime factor of 600851475143 - uses combination brute force and fermat's factorization method
-            //Debug.WriteLine(q3(600851475143) + "");
+            Debug.WriteLine(q3(600851475143) + "");
 
             //Q4 Find the largest palindrome made from the product of two 3-digit numbers.
             Debug.WriteLine(q4() + "");
+            
+            //Q5 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
+            Debug.WriteLine(q5() + "");
+
+            //Q6 Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+            Debug.WriteLine(q6() + "");
+
+            //Q7 What is the 10 001st prime number?
+            Debug.WriteLine(q7() + "");
+
+            //Q8 Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
+            Debug.WriteLine(q8() + "");
+            */
+
+            //Q9 There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+            //Find the product abc.
+            Debug.WriteLine(q9() + "");
+
+        }
+
+        private static decimal q9()
+        {
+
+        }
+
+        private static decimal q8()
+        {
+            decimal candidate = 0;
+            decimal multiplier = 1;
+            decimal rtnSum = 0;
+
+            List<decimal> series = new List<decimal>
+            {
+                7,3,1,6,7,1,7,6,5,3,1,3,3,0,6,2,4,9,1,9,2,2,5,1,1,9,6,7,4,4,2,6,5,7,4,7,4,2,3,5,5,3,4,9,1,9,4,9,3,4,
+                9,6,9,8,3,5,2,0,3,1,2,7,7,4,5,0,6,3,2,6,2,3,9,5,7,8,3,1,8,0,1,6,9,8,4,8,0,1,8,6,9,4,7,8,8,5,1,8,4,3,
+                8,5,8,6,1,5,6,0,7,8,9,1,1,2,9,4,9,4,9,5,4,5,9,5,0,1,7,3,7,9,5,8,3,3,1,9,5,2,8,5,3,2,0,8,8,0,5,5,1,1,
+                1,2,5,4,0,6,9,8,7,4,7,1,5,8,5,2,3,8,6,3,0,5,0,7,1,5,6,9,3,2,9,0,9,6,3,2,9,5,2,2,7,4,4,3,0,4,3,5,5,7,
+                6,6,8,9,6,6,4,8,9,5,0,4,4,5,2,4,4,5,2,3,1,6,1,7,3,1,8,5,6,4,0,3,0,9,8,7,1,1,1,2,1,7,2,2,3,8,3,1,1,3,
+                6,2,2,2,9,8,9,3,4,2,3,3,8,0,3,0,8,1,3,5,3,3,6,2,7,6,6,1,4,2,8,2,8,0,6,4,4,4,4,8,6,6,4,5,2,3,8,7,4,9,
+                3,0,3,5,8,9,0,7,2,9,6,2,9,0,4,9,1,5,6,0,4,4,0,7,7,2,3,9,0,7,1,3,8,1,0,5,1,5,8,5,9,3,0,7,9,6,0,8,6,6,
+                7,0,1,7,2,4,2,7,1,2,1,8,8,3,9,9,8,7,9,7,9,0,8,7,9,2,2,7,4,9,2,1,9,0,1,6,9,9,7,2,0,8,8,8,0,9,3,7,7,6,
+                6,5,7,2,7,3,3,3,0,0,1,0,5,3,3,6,7,8,8,1,2,2,0,2,3,5,4,2,1,8,0,9,7,5,1,2,5,4,5,4,0,5,9,4,7,5,2,2,4,3,
+                5,2,5,8,4,9,0,7,7,1,1,6,7,0,5,5,6,0,1,3,6,0,4,8,3,9,5,8,6,4,4,6,7,0,6,3,2,4,4,1,5,7,2,2,1,5,5,3,9,7,
+                5,3,6,9,7,8,1,7,9,7,7,8,4,6,1,7,4,0,6,4,9,5,5,1,4,9,2,9,0,8,6,2,5,6,9,3,2,1,9,7,8,4,6,8,6,2,2,4,8,2,
+                8,3,9,7,2,2,4,1,3,7,5,6,5,7,0,5,6,0,5,7,4,9,0,2,6,1,4,0,7,9,7,2,9,6,8,6,5,2,4,1,4,5,3,5,1,0,0,4,7,4,
+                8,2,1,6,6,3,7,0,4,8,4,4,0,3,1,9,9,8,9,0,0,0,8,8,9,5,2,4,3,4,5,0,6,5,8,5,4,1,2,2,7,5,8,8,6,6,6,8,8,1,
+                1,6,4,2,7,1,7,1,4,7,9,9,2,4,4,4,2,9,2,8,2,3,0,8,6,3,4,6,5,6,7,4,8,1,3,9,1,9,1,2,3,1,6,2,8,2,4,5,8,6,
+                1,7,8,6,6,4,5,8,3,5,9,1,2,4,5,6,6,5,2,9,4,7,6,5,4,5,6,8,2,8,4,8,9,1,2,8,8,3,1,4,2,6,0,7,6,9,0,0,4,2,
+                2,4,2,1,9,0,2,2,6,7,1,0,5,5,6,2,6,3,2,1,1,1,1,1,0,9,3,7,0,5,4,4,2,1,7,5,0,6,9,4,1,6,5,8,9,6,0,4,0,8,
+                0,7,1,9,8,4,0,3,8,5,0,9,6,2,4,5,5,4,4,4,3,6,2,9,8,1,2,3,0,9,8,7,8,7,9,9,2,7,2,4,4,2,8,4,9,0,9,1,8,8,
+                8,4,5,8,0,1,5,6,1,6,6,0,9,7,9,1,9,1,3,3,8,7,5,4,9,9,2,0,0,5,2,4,0,6,3,6,8,9,9,1,2,5,6,0,7,1,7,6,0,6,
+                0,5,8,8,6,1,1,6,4,6,7,1,0,9,4,0,5,0,7,7,5,4,1,0,0,2,2,5,6,9,8,3,1,5,5,2,0,0,0,5,5,9,3,5,7,2,9,7,2,5,
+                7,1,6,3,6,2,6,9,5,6,1,8,8,2,6,7,0,4,2,8,2,5,2,4,8,3,6,0,0,8,2,3,2,5,7,5,3,0,4,2,0,7,5,2,9,6,3,4,5,0
+            };
+        
+            for(int i = 0; i < series.Count - 13; i++)
+            {
+                candidate = 0;
+                multiplier = 1;
+                for (int j = 0; j < 13; j++)
+                {
+                    candidate = multiplier * series[i + j];
+                    multiplier = candidate;
+                }
+                if (candidate > rtnSum)
+                    rtnSum = candidate;
+            }
+            return rtnSum;
+        }
+
+        private static decimal q7()
+        {
+            decimal candidate = primes2_10k.Max() + 2;
+            bool gotOne;
+
+            while (primes2_10k.Count < 10001)
+            {
+                gotOne = true;
+                for (int i = 0; primes2_10k[i] < (decimal)Math.Sqrt((double)candidate); i++)
+                {
+                    if (candidate % primes2_10k[i] == 0)
+                    {
+                        gotOne = false;
+                        break;
+                    }
+
+                }
+                if (gotOne)
+                    primes2_10k.Add(candidate);
+
+                candidate += 2;
+
+            }
+            return primes2_10k.Max();
+        }
+
+        private static double q6()
+        {
+            double sumSquare = 0;
+            double squareSum = 0;
+
+            for (int i = 1; i <101; i++)
+            {
+                sumSquare = sumSquare + Math.Pow(i, 2);
+                squareSum += i;
+            }
+
+            return (Math.Pow(squareSum, 2) - sumSquare);
+        }
+
+        private static int q5()
+        {
+            int candidate = 20;
+            int currentFactor = 19;
+            int currentAdd = 20;
+            bool tryAgain = true;
+
+            while (tryAgain)
+            {
+                tryAgain = false;
+                while (candidate  % (currentFactor) != 0)
+                {
+                    candidate += currentAdd;
+                }
+                currentAdd = candidate;
+
+                for (int i = 20; i > 0; i--)
+                {
+                    if (candidate % i != 0)
+                    {
+                        tryAgain = true;
+                        currentFactor = i;
+                        i = 0;
+                    }
+                }            
+            }
+
+            return candidate;
         }
 
         private static int q4()
@@ -60,7 +201,9 @@ namespace euler
             int num_2 = 999;
 
             int lowest = 0;
-            while (!isPalindrome(num_1 * num_2))
+            int palind = 0;
+
+            while (isPalindrome(num_1 * num_2) < 0)
             {
                 if (num_1 == num_2)
                     num_1--;
@@ -68,21 +211,23 @@ namespace euler
                     num_2--;
             }
 
+            palind = num_1 * num_2;
             lowest = num_1;
 
-            while (!isPalindrome(num_1 * num_2) && num_2 < 1000)
+            for (num_2 = lowest; num_2 < 1000; num_2++)
             {
-                num_1 = lowest;
-                while (!isPalindrome(num_1 * num_2) && num_1 < 1000)
+                for (num_1 = num_2; num_1 < 1000; num_1++)
                 {
-                    num_1++;
-                }
-                num_2++;
+                    if (isPalindrome(num_1 * num_2) > palind)
+                    {
+                        palind = isPalindrome(num_1 * num_2);
+                    }
+                 }
             }
-            return num_1 * num_2;
+            return palind;
         }
 
-        public static bool isPalindrome(int candidate)
+        public static int isPalindrome(int candidate)
         {
             int left = candidate;
             int r;
@@ -93,7 +238,11 @@ namespace euler
                 rev = rev * 10 + r;
                 left = left / 10;  //left = Math.floor(left / 10); 
             }
-            return (rev == candidate);
+            if (rev == candidate)
+                return rev;
+            else
+                return -1;
+
         }
 
         private static decimal q3(decimal numFactor)
@@ -103,18 +252,18 @@ namespace euler
             return maxFactor.Max();
         }
 
-        //Uses brute force for lower values and Fermats factorization method to find factors of the input > 10,000
-        //This could be sped up a lot by not adding numbers that aren't prime to the list
+        //Uses brute force for lower values and Fermats factorization method to find prime factors of the input > 100,000
+        //This should be quick enough to factor 15 - 20 digit numbers
         private static bool addFactorsToList(decimal numFactor)
         {
             bool addedSome = false;
-            // First check if it is an even number - if it is add in largest factor 
+
+            // First check if it is an even number - if it is divide by 2 and call again
             if (numFactor % 2 == 0)
             {
-                maxFactor.Add(numFactor / 2);
-                maxFactor.Add(2);
-                addedSome = true;
                 maxFactor.Remove(numFactor);
+                addFactorsToList(numFactor / 2);
+                addedSome = true;
                 return addedSome;
             }
 
@@ -136,7 +285,7 @@ namespace euler
             }
 
             // fermat's factorization method used below
-            // double approximation here could be a problem sometimes...
+            // double approximation for Math class shouldn't be an issue on most machines
             decimal squareAdd = 1;
             decimal possSquare = numFactor + squareAdd;
             decimal squareEven = (decimal)Math.Ceiling(Math.Sqrt((double)numFactor));
@@ -147,7 +296,7 @@ namespace euler
             fct1 = 0;
             fct2 = 0;
 
-            // All numbers are divisble by themselves and 1 so this will halt at that point, could speed this up dramatically by halting sooner
+            // All numbers are divisble by themselves and 1 so this will definitely halt at that point, but should stop once numbers to be checked are under 100k, this is trivial to change
             while (fct1 != numFactor)
             {
                 if (possSquare == squareTotal)
@@ -158,9 +307,17 @@ namespace euler
                     if (fct2 != 1)
                     {
                         // found some factors
-                        maxFactor.Add(fct1);
-                        maxFactor.Add(fct2);
-                        addedSome = true;
+                        // only add them if they're prime
+                        if (IsPrime((int)fct1))
+                        {
+                            maxFactor.Add(fct1);
+                            addedSome = true;
+                        }
+                        if (IsPrime((int)fct1))
+                        {
+                            maxFactor.Add(fct2);
+                            addedSome = true;
+                        }
                     }
                 }
 
@@ -172,8 +329,8 @@ namespace euler
                     squareTotal += (squareEven * 2) + 1;
                     squareEven += 1;
                 }
-                // if we're checking values under 10k we can stop
-                if (squareEven - ((squareAdd + 1) / 2) < 10000)
+                // if we're checking values under 100k we can stop as it's been brute forced above
+                if (squareEven - ((squareAdd + 1) / 2) < 100000)
                     break;
 
             }
@@ -185,6 +342,22 @@ namespace euler
             return addedSome;
         }
 
+        // Warning - this will probably work but not guaranteed - see Carmichael Numbers
+        private static bool IsPrime(int candidate)
+        {
+            //checking if candidate = 0 || 1 || 2
+            double a = (double)candidate - 1; //candidate can't be divisor of candidate - 1
+
+            double result = 1;
+            for (int i = 0; i < candidate; i++)
+            {
+                result = result * a;
+                result = result % candidate;
+            }
+
+            result -= a;
+            return result == 0;
+        }
 
         private static long q2()
         {
