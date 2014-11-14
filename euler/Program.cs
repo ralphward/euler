@@ -9,29 +9,29 @@ namespace euler
     class Program
     {
         private static List<decimal> maxFactor;
-        private static List<decimal> primes2_10k;
+        private static List<decimal> primes_list;
 
         private static void init()
         {
             maxFactor = new List<decimal> { };
-            primes2_10k = new List<decimal>{ 2, 3 };
+            primes_list = new List<decimal>{ 2, 3 };
 
-            decimal candidate = primes2_10k.Max() + 2;
+            decimal candidate = primes_list.Max() + 2;
             bool gotOne;
 
-            while (primes2_10k.Count < 10000)
+            while (primes_list.Count < 10000)
             {
                 gotOne = true;
-                for (int i = 0; primes2_10k[i] < (decimal)Math.Sqrt((double)candidate); i++)
+                for (int i = 0; primes_list[i] <= (decimal)Math.Sqrt((double)candidate); i++)
                 {
-                    if (candidate % primes2_10k[i] == 0)
+                    if (candidate % primes_list[i] == 0)
                     {
                         gotOne = false;
                         break;
                     }
                 }
                 if (gotOne)
-                    primes2_10k.Add(candidate);
+                    primes_list.Add(candidate);
 
                 candidate += 2;
             }
@@ -43,7 +43,6 @@ namespace euler
 
             init();
 
-            /*
             //Q1 Sum of all numbers under 1000 that are divisible by 3 and 5
             Debug.WriteLine(q1() + "");
 
@@ -67,17 +66,57 @@ namespace euler
 
             //Q8 Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
             Debug.WriteLine(q8() + "");
-            */
 
             //Q9 There exists exactly one Pythagorean triplet for which a + b + c = 1000.
             //Find the product abc.
             Debug.WriteLine(q9() + "");
 
+            //Q10 Find the sum of all the primes below two million.
+            Debug.WriteLine(q10() + "");
+
         }
 
-        private static decimal q9()
+        private static decimal q10()
         {
+            decimal candidate = primes_list.Max() + 2;
+            bool gotOne;
 
+            while (candidate < 2000000)
+            {
+                gotOne = true;
+                for (int i = 0; primes_list[i] <= (decimal)Math.Sqrt((double)candidate); i++)
+                {
+                    if (candidate % primes_list[i] == 0)
+                    {
+                        gotOne = false;
+                        break;
+                    }
+                }
+                if (gotOne)
+                    primes_list.Add(candidate);
+
+                candidate += 2;
+            }
+
+            return primes_list.Sum();
+
+        
+        }
+        private static int q9()
+        {
+            for (int a = 1; a < 1000; a++)
+            {
+                for (int b = a; b < 1000; b++)
+                {
+                    int c = 1000 - a - b;
+                    if (c > 0)
+                    {
+                        if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2))
+                            return (a * b * c);
+                    }
+                }
+            }
+            return 0;
         }
 
         private static decimal q8()
@@ -127,15 +166,15 @@ namespace euler
 
         private static decimal q7()
         {
-            decimal candidate = primes2_10k.Max() + 2;
+            decimal candidate = primes_list.Max() + 2;
             bool gotOne;
 
-            while (primes2_10k.Count < 10001)
+            while (primes_list.Count < 10001)
             {
                 gotOne = true;
-                for (int i = 0; primes2_10k[i] < (decimal)Math.Sqrt((double)candidate); i++)
+                for (int i = 0; primes_list[i] <= (decimal)Math.Sqrt((double)candidate); i++)
                 {
-                    if (candidate % primes2_10k[i] == 0)
+                    if (candidate % primes_list[i] == 0)
                     {
                         gotOne = false;
                         break;
@@ -143,12 +182,12 @@ namespace euler
 
                 }
                 if (gotOne)
-                    primes2_10k.Add(candidate);
+                    primes_list.Add(candidate);
 
                 candidate += 2;
 
             }
-            return primes2_10k.Max();
+            return primes_list.Max();
         }
 
         private static double q6()
@@ -253,7 +292,6 @@ namespace euler
         }
 
         //Uses brute force for lower values and Fermats factorization method to find prime factors of the input > 100,000
-        //This should be quick enough to factor 15 - 20 digit numbers
         private static bool addFactorsToList(decimal numFactor)
         {
             bool addedSome = false;
@@ -268,11 +306,11 @@ namespace euler
             }
 
             // check we're not a prime already - if we're prime here this is the correct answer
-            if (primes2_10k.Contains(numFactor))
+            if (primes_list.Contains(numFactor))
                 return addedSome;
 
             // brute force for the first 10,000 primes
-            foreach (decimal x in primes2_10k)
+            foreach (decimal x in primes_list)
             {
                 if (numFactor % x == 0)
                 {
