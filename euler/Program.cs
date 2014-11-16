@@ -85,6 +85,139 @@ namespace euler
             //Q14 Which starting number, under one million, produces the longest Collatz Sequence chain?
             Debug.WriteLine(q14() + "");
 
+            //Q15 How many such routes are there through a 20×20 grid?
+            Debug.WriteLine(q15() + "");
+
+            //Q16 What is the sum of the digits of the number 2^1000?
+            Debug.WriteLine(q16() + "");
+
+            //Q17 What is the sum of the digits of the number 2^1000?
+            Debug.WriteLine(q17() + "");
+
+        }
+
+        private static int q17()
+        {
+            IDictionary<int, string> numbers = new Dictionary<int, string> { };
+            int total = 0;
+
+            numbers.Add(0, "");
+            numbers.Add(1, "one");
+            numbers.Add(2, "two");
+            numbers.Add(3, "three");
+            numbers.Add(4, "four");
+            numbers.Add(5, "five");
+            numbers.Add(6, "six");
+            numbers.Add(7, "seven");
+            numbers.Add(8, "eight");
+            numbers.Add(9, "nine");
+            numbers.Add(10, "ten");
+            numbers.Add(11, "eleven");
+            numbers.Add(12, "twelve");
+            numbers.Add(13, "thirteen");
+            numbers.Add(14, "fourteen");
+            numbers.Add(15, "fifteen");
+            numbers.Add(16, "sixteen");
+            numbers.Add(17, "seventeen");
+            numbers.Add(18, "eighteen");
+            numbers.Add(19, "nineteen");
+            numbers.Add(20, "twenty");
+            numbers.Add(30, "thirty");
+            numbers.Add(40, "forty");
+            numbers.Add(50, "fifty");
+            numbers.Add(60, "sixty");
+            numbers.Add(70, "seventy");
+            numbers.Add(80, "eighty");
+            numbers.Add(90, "ninety");
+            numbers.Add(100, "hundred");
+            numbers.Add(1000, "thousand");
+
+            for (int i = 1; i <= 1000; i++ )
+            {
+                if (i < 20)
+                    total += numbers[i].Length;
+                else if (i < 100)
+                    total += numbers[i - (i % 10)].Length + numbers[i % 10].Length;
+                else if (i == 1000)
+                    total += numbers[1].Length + numbers[1000].Length;
+                else if ((i % 100) == 0)
+                    total += numbers[(i - (i % 100)) / 100].Length + numbers[100].Length;
+                else if ((i % 100) < 20)
+                    total += numbers[(i - (i % 100)) / 100].Length + numbers[100].Length + 3 + numbers[i % 100].Length;
+                else
+                    total += numbers[(i - (i % 100)) / 100].Length + numbers[100].Length + 3 + numbers[(i % 100) - (i % 10)].Length + numbers[i % 10].Length;
+
+            }
+
+            return total;
+        }
+
+        private static double q16()
+        {
+            int[] powers = new int[3400];
+            int[] powers_2 = new int[3400];
+            int rtn_val = 0;
+
+            for (int l = 0; l < 3400; l++ )
+            {
+                powers[l] = 0;
+                powers_2[l] = 0;
+
+            }
+
+            powers[0] = 2;
+            int current = 1;
+            int remainder;
+
+            for (int i = 0; i < 999; i++)
+            {
+                int j = 0;
+                remainder = 0;
+
+                while (j < current)
+                {
+                    powers_2[j] = ((powers[j] * 2) + remainder )% 10;
+                    remainder = (((powers[j] * 2) + remainder) - (((powers[j] * 2) + remainder) % 10)) / 10;
+                    j++;
+                }
+                current = j + 1;
+                powers_2[j] = remainder;
+
+                int k = 0;
+                while (k <= current)
+                {
+                    powers[k] = powers_2[k];
+                    powers_2[k] = 0;
+                    k++;
+                }
+
+            }
+            for (int y = 0; y < current; y++)
+                rtn_val += powers[y];
+
+            return rtn_val;
+        }
+
+        private static double q15()
+        {
+            double[,] path_grid = new double[21, 21];
+
+
+            for (int l = 0; l < 21; l++)
+            { 
+                path_grid[0, l] = 1;
+                path_grid[l, 0] = 1;
+            }
+
+            for (int i = 1; i < 21; i++)
+            {
+                for (int j = 1; j < 21; j++)
+                {
+                    path_grid[i, j] = path_grid[i - 1, j] + path_grid[i, j - 1];
+                }
+            }
+            return path_grid[20, 20];
+
         }
 
         private static double q14()
