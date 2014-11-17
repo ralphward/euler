@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace euler
 {
@@ -14,7 +15,7 @@ namespace euler
         private static void init()
         {
             maxFactor = new List<decimal> { };
-            primes_list = new List<decimal>{ 2, 3 };
+            primes_list = new List<decimal> { 2, 3 };
 
             decimal candidate = primes_list.Max() + 2;
             bool gotOne;
@@ -54,7 +55,7 @@ namespace euler
 
             //Q4 Find the largest palindrome made from the product of two 3-digit numbers.
             Debug.WriteLine(q4() + "");
-            
+
             //Q5 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
             Debug.WriteLine(q5() + "");
 
@@ -94,8 +95,134 @@ namespace euler
             //Q17 What is the sum of the digits of the number 2^1000?
             Debug.WriteLine(q17() + "");
 
+            //Q18 Find the maximum total from top to bottom of the triangle below:
+            Debug.WriteLine(q18() + "");
+
+            //Q19 How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+            Debug.WriteLine(q19() + "");
+
+            //Q20 Find the sum of the digits in the number 100!
+            Debug.WriteLine(q20() + "");
+
         }
 
+        private static int q20()
+        {
+            BigInteger bi = new BigInteger((int)100);
+
+            for (int i = 99; i > 0; i--)
+            {
+                bi = BigInteger.Multiply(bi, i);
+            }
+
+            char[] num = bi.ToString().ToCharArray();
+
+            int rtn_val = 0;
+
+            for (int j = 0; j < num.Length; j++)
+                rtn_val += Int32.Parse(num[j] + "");
+
+            return rtn_val;
+        }
+
+        private static int q19()
+        {
+            int total_sundays = 0;
+
+            // starting on Tuesday as 1 Jan 1901 was Tuesday- 0 is Sunday
+            int current_day = 2;
+
+            IDictionary<int, int> month_days = new Dictionary<int, int> { {1, 31}, {2, 28}, {3, 31}, {4, 30}, {5, 31}, {6, 30}, {7, 31}, {8, 31}, {9, 30}, {10, 31}, {11, 30},{12, 31}, };
+
+            for (int i = 1901; i <= 2000; i++)
+            {
+                for (int j = 1; j <= 12; j++)
+                {
+                    if (current_day == 0)
+                        total_sundays++;
+
+                    if (j == 2)
+                        if ((i % 4 == 0) && (i % 100 != 0 || i % 400 == 0))
+                            current_day = (current_day + 1) % 7;
+
+                    current_day = (current_day + month_days[j]) % 7;
+
+                }
+            }
+
+            return total_sundays;
+        }
+
+        // Working from the top of the triangle down add the highest value above to the next line below
+        // once at the bottom the highest n
+        private static int q18()
+        {
+            /*
+            Find the maximum total from top to bottom of the triangle below:
+                          75
+                         95 64
+                        17 47 82
+                       18 35 87 10
+                      20 04 82 47 65
+                     19 01 23 75 03 34
+                    88 02 77 73 07 63 67
+                   99 65 04 28 06 16 70 92
+                  41 41 26 56 83 40 80 70 33
+                 41 48 72 33 47 32 37 16 94 29
+                53 71 44 65 25 43 91 52 97 51 14
+               70 11 33 28 77 73 17 78 39 68 17 57
+              91 71 52 38 17 14 91 43 58 50 27 29 48
+             63 66 04 68 89 53 67 30 73 16 69 87 40 31
+            04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+            */
+
+            int rtn_val = 0;
+            int[][] p_triangle = new int[15][];
+
+            p_triangle[0] = new int[] { 75 };
+            p_triangle[1] = new int[] { 94, 64 };
+            p_triangle[2] = new int[] { 17, 47, 82 };
+            p_triangle[3] = new int[] { 18, 35, 87, 10 };
+            p_triangle[4] = new int[] { 20, 04, 82, 47, 65 };
+            p_triangle[5] = new int[] { 19, 01, 23, 75, 03, 34 };
+            p_triangle[6] = new int[] { 88, 02, 77, 73, 07, 63, 67 };
+            p_triangle[7] = new int[] { 99, 65, 04, 28, 06, 16, 70, 92 };
+            p_triangle[8] = new int[] { 41, 41, 26, 56, 83, 40, 80, 70, 33 };
+            p_triangle[9] = new int[] { 41, 48, 72, 33, 47, 32, 37, 16, 94, 29 };
+            p_triangle[10] = new int[] { 53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14 };
+            p_triangle[11] = new int[] { 70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57 };
+            p_triangle[12] = new int[] { 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48 };
+            p_triangle[13] = new int[] { 63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31 };
+            p_triangle[14] = new int[] { 04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23 };
+
+            for (int i = 1; i < 15; i++)
+            {
+                for (int j = 0; j < p_triangle[i].Length; j++)
+                {
+                    if (j == 0)
+                        p_triangle[i][j] += p_triangle[i - 1][j];
+                    else if (j == p_triangle[i].Length - 1)
+                        p_triangle[i][j] += p_triangle[i - 1][j - 1];
+                    else
+                    {
+                        if (p_triangle[i - 1][j - 1] > p_triangle[i - 1][j])
+                            p_triangle[i][j] += p_triangle[i - 1][j - 1];
+                        else
+                            p_triangle[i][j] += p_triangle[i - 1][j];
+                    }
+                }
+            
+            }
+
+            for (int k = 0; k < p_triangle[14].Length; k++)
+                if (p_triangle[14][k] > rtn_val)
+                    rtn_val = p_triangle[14][k];
+
+            return rtn_val;
+
+        }
+
+        // Added text words here for troubleshooting and readability
         private static int q17()
         {
             IDictionary<int, string> numbers = new Dictionary<int, string> { };
@@ -132,7 +259,7 @@ namespace euler
             numbers.Add(100, "hundred");
             numbers.Add(1000, "thousand");
 
-            for (int i = 1; i <= 1000; i++ )
+            for (int i = 1; i <= 1000; i++)
             {
                 if (i < 20)
                     total += numbers[i].Length;
@@ -152,13 +279,14 @@ namespace euler
             return total;
         }
 
+        // Not very happy with this approach - needs refactoring
         private static double q16()
         {
             int[] powers = new int[3400];
             int[] powers_2 = new int[3400];
             int rtn_val = 0;
 
-            for (int l = 0; l < 3400; l++ )
+            for (int l = 0; l < 3400; l++)
             {
                 powers[l] = 0;
                 powers_2[l] = 0;
@@ -176,7 +304,7 @@ namespace euler
 
                 while (j < current)
                 {
-                    powers_2[j] = ((powers[j] * 2) + remainder )% 10;
+                    powers_2[j] = ((powers[j] * 2) + remainder) % 10;
                     remainder = (((powers[j] * 2) + remainder) - (((powers[j] * 2) + remainder) % 10)) / 10;
                     j++;
                 }
@@ -204,7 +332,7 @@ namespace euler
 
 
             for (int l = 0; l < 21; l++)
-            { 
+            {
                 path_grid[0, l] = 1;
                 path_grid[l, 0] = 1;
             }
@@ -251,7 +379,7 @@ namespace euler
         }
         private static string q13()
         {
-            int[,] sum = new int[100,50] {
+            int[,] sum = new int[100, 50] {
                 {3,7,1,0,7,2,8,7,5,3,3,9,0,2,1,0,2,7,9,8,7,9,7,9,9,8,2,2,0,8,3,7,5,9,0,2,4,6,5,1,0,1,3,5,7,4,0,2,5,0},
                 {4,6,3,7,6,9,3,7,6,7,7,4,9,0,0,0,9,7,1,2,6,4,8,1,2,4,8,9,6,9,7,0,0,7,8,0,5,0,4,1,7,0,1,8,2,6,0,5,3,8},
                 {7,4,3,2,4,9,8,6,1,9,9,5,2,4,7,4,1,0,5,9,4,7,4,2,3,3,3,0,9,5,1,3,0,5,8,1,2,3,7,2,6,6,1,7,3,0,9,6,2,9},
@@ -372,13 +500,14 @@ namespace euler
             return carryOver + total[49] + total[48] + total[47] + total[46] + total[45] + total[44] + total[43] + total[42];
 
         }
+
         private static double q12()
         {
             double currentPoss = 7;
             double total = 28;
             List<double> numDivisors = new List<double> { };
 
-            while(numDivisors.Count < 499)
+            while (numDivisors.Count < 499)
             {
                 currentPoss++;
                 total += currentPoss;
@@ -437,7 +566,7 @@ namespace euler
              */
 
             double[,] grid;
-            grid = new double[20,20]
+            grid = new double[20, 20]
             {
                 {08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08},
                 {49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00},
@@ -584,7 +713,7 @@ namespace euler
             return rtnSum;
         }
 
-        // This could be sped up a lot by using double - but getting errors on my machine with doubles
+        // This could be sped up a lot by using doubles - but getting errors on my machine with doubles
         private static decimal q10()
         {
             decimal candidate = primes_list.Max() + 2;
@@ -609,7 +738,7 @@ namespace euler
 
             return primes_list.Sum();
 
-        
+
         }
         private static int q9()
         {
@@ -657,8 +786,8 @@ namespace euler
                 0,5,8,8,6,1,1,6,4,6,7,1,0,9,4,0,5,0,7,7,5,4,1,0,0,2,2,5,6,9,8,3,1,5,5,2,0,0,0,5,5,9,3,5,7,2,9,7,2,5,
                 7,1,6,3,6,2,6,9,5,6,1,8,8,2,6,7,0,4,2,8,2,5,2,4,8,3,6,0,0,8,2,3,2,5,7,5,3,0,4,2,0,7,5,2,9,6,3,4,5,0
             };
-        
-            for(int i = 0; i < series.Count - 13; i++)
+
+            for (int i = 0; i < series.Count - 13; i++)
             {
                 candidate = 0;
                 multiplier = 1;
@@ -704,7 +833,7 @@ namespace euler
             double sumSquare = 0;
             double squareSum = 0;
 
-            for (int i = 1; i <101; i++)
+            for (int i = 1; i < 101; i++)
             {
                 sumSquare = sumSquare + Math.Pow(i, 2);
                 squareSum += i;
@@ -723,7 +852,7 @@ namespace euler
             while (tryAgain)
             {
                 tryAgain = false;
-                while (candidate  % (currentFactor) != 0)
+                while (candidate % (currentFactor) != 0)
                 {
                     candidate += currentAdd;
                 }
@@ -737,7 +866,7 @@ namespace euler
                         currentFactor = i;
                         i = 0;
                     }
-                }            
+                }
             }
 
             return candidate;
@@ -770,7 +899,7 @@ namespace euler
                     {
                         palind = isPalindrome(num_1 * num_2);
                     }
-                 }
+                }
             }
             return palind;
         }
@@ -784,7 +913,7 @@ namespace euler
             {
                 r = left % 10;
                 rev = rev * 10 + r;
-                left = left / 10;  //left = Math.floor(left / 10); 
+                left = left / 10; 
             }
             if (rev == candidate)
                 return rev;
