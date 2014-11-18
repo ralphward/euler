@@ -104,8 +104,55 @@ namespace euler
             //Q20 Find the sum of the digits in the number 100!
             Debug.WriteLine(q20() + "");
 
+            //Q21 Evaluate the sum of all the amicable numbers under 10000
+            Debug.WriteLine(q21() + "");
+
         }
 
+        // this could be sped up a lot...
+        private static int q21()
+        {
+            int[] num_array = new int[10000];
+            IList<int> factors = new List<int> { };
+            IList<int> factors_2 = new List<int> { };
+            int total_sum = 0;
+            int first_sum = 0;
+
+            for (int i = 1; i <= num_array.Length; i++)
+                num_array[i - 1] = i;
+
+            for (int j = 0; j < num_array.Length; j++)
+            {
+                if (num_array[j] > 0)
+                {
+                    factors.Clear();
+                    factors_2.Clear();
+                    for (int k = 0; k < j; k++)
+                    {
+                        if (num_array[j] % num_array[k] == 0)
+                            factors.Add(num_array[k]);
+                    }
+
+                    first_sum = factors.Sum();
+
+                    if (first_sum < 10000)
+                    {
+                        for (int l = 0; l < first_sum - 1; l++)
+                        {
+                            if (first_sum % num_array[l] == 0)
+                                factors_2.Add(num_array[l]);
+                        }
+
+                        if (first_sum != factors_2.Sum() && num_array[j] == factors_2.Sum())
+                        {
+                            total_sum += num_array[j];
+                        }
+                    }
+                }
+            }
+
+            return total_sum;
+        }
         private static int q20()
         {
             BigInteger bi = new BigInteger((int)100);
